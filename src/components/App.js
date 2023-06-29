@@ -9,9 +9,9 @@ import Question from "./Question";
 
 const initialState = {
 	questions: [],
-
-	// "loading", "error", "ready", "active", "finished"
+	// status: "loading" || "error"|| "ready"|| "active"|| "finished"
 	status: "loading",
+	index: 0,
 };
 
 function reducer(state, action) {
@@ -28,7 +28,10 @@ function reducer(state, action) {
 }
 
 export default function App() {
-	const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+	const [{ questions, status, index }, dispatch] = useReducer(
+		reducer,
+		initialState
+	);
 
 	const numQuestions = questions.length;
 
@@ -51,7 +54,9 @@ export default function App() {
 						dispatch={dispatch}
 					/>
 				)}
-				{status === "active" && <Question />}
+				{status === "active" && (
+					<Question question={questions.at(index)} />
+				)}
 			</Main>
 		</div>
 	);
